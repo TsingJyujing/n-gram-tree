@@ -10,18 +10,17 @@ public class test {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String train_sen = "Kitty want 去 吃 鱼 but I want 去 take some 牛肉 I want 去 eat 牛肉";
-        //中文夹杂测试
+        String train_sen = "Kitty want to eat fish but I want to take some beef I want to eat beef";
         String [] test_sen = {
-            "Kitty want to 吃 鱼 but I",
+            "Kitty want to eat fish but I",
             "want to fuck",
-            "Kitty want 去",
+            "Kitty want to",
             "I want 去",
-            "want 去",
+            "want to",
             "take some",
             "fuck some",
         };
-        ngmodel ngm_src = new ngmodel();
+        ngmodel ngm_src = new ngmodel(4);
         ngm_src.train(train_sen, " ");
 
         //序列化测试
