@@ -7,8 +7,9 @@ import java.util.List;
  *
  * @author yuanyifan
  * 这类是用来保存预测的结果的，包括预测层数
+ * @param <T>
  */
-public class predict_result {
+public class predict_result<T> {
     public long sum_count = 0;//总数
     public long predict_layer = 0;//获取这个结果所用的N-Gram的层数（也就是N）
     public boolean valid = false;//是否有效的获取了结果
@@ -25,7 +26,7 @@ public class predict_result {
      * @param word 增加的结果词汇
      * @param count 结果的频数
      */
-    public void add(String word, long count){
+    public void add(T word, long count){
         words.add(new word_prob_unit(word,count));
         sum_count += count;
     }
@@ -56,8 +57,8 @@ public class predict_result {
         for (int i = 0; i<items; i++){
             double percent = words.get(i).count*100;
             percent/=sum_count;
-            System.out.printf("Predict:%s Prob(%d/%d)=%f%%\n",
-                    words.get(i).word,
+            System.out.print("Predict:" + words.get(i).word + " ");
+            System.out.printf("Prob(%d/%d):%f%%\n",
                     words.get(i).count,
                     sum_count,
                     percent);
@@ -75,13 +76,13 @@ public class predict_result {
      *
      * @return 返回结果的词汇列表
      */
-    public String [] get_result_strings(){
+    public T [] get_result_strings(){
         if(!valid){
-            return new String [0];
+            return (T[]) (new Object [0]);
         }
-        String [] return_val = new String[words.size()];
+        T [] return_val =  (T[]) (new Object [words.size()]);
         for (int i = 0; i<words.size(); i++){
-            return_val[i] = words.get(i).word;
+            return_val[i] = (T) words.get(i).word;
         }
         return return_val;
     }
@@ -103,13 +104,14 @@ public class predict_result {
     
     /**
      *用来储存每个结果的单元
+     * @param <T> 索引类型卧槽要我打几遍啊这破软件
      */
-    public class word_prob_unit implements Comparable<word_prob_unit>{
+    public class word_prob_unit<T> implements Comparable<word_prob_unit>{
         //这下一语成真真的变成内部类了
-        public String word;
+        public T word;
         public long count = 0;
         public word_prob_unit(){}
-        public word_prob_unit(String word, long count){
+        public word_prob_unit(T word, long count){
             this.word = word;
             this.count = count;
         }

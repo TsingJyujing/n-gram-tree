@@ -12,19 +12,20 @@ import java.util.zip.GZIPOutputStream;
 /**
  *
  * @author yuanyifan
+ * @param <T>
  */
-public class ngmodel implements Serializable {
+public class ngmodel<T> implements Serializable {
     
     private ngnode head_node;
     private int max_depth = 4;
     
     public ngmodel(){
-        head_node = new ngnode("NGramHeadNode",0);
+        head_node = new ngnode(null,0);
     }
     
     public ngmodel(int max_depth){
         this.max_depth = max_depth;
-        head_node = new ngnode("NGramHeadNode",0);
+        head_node = new ngnode(null,0);
     }
 
     public void train(String [] train_set){
