@@ -74,9 +74,9 @@ public class predict_result<T> {
     
     /**
      *
-     * @return 返回结果的词汇列表
+     * @return 返回结果的Key列表
      */
-    public T [] get_result_strings(){
+    public T [] get_result_keys(){
         if(!valid){
             return (T[]) (new Object [0]);
         }
