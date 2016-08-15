@@ -24,9 +24,9 @@ public class ngnode<T> implements Serializable {
     //でも、Who TM cares?
     public HashMap<T,ngnode> sub_nodes_map = new HashMap<>();
     
-    public long count;
+    public long count = 0;
     
-    //构造函数（们）简直像开了个后宫，看参数翻牌子
+    
     public ngnode(){
         count = 0;
     }
@@ -39,8 +39,6 @@ public class ngnode<T> implements Serializable {
         this.word = add_word;
         this.count = init_count;
     }
-    
-    //析构函数就不写了，垃圾让GC自己捡吧，Hia~Hia~Hia~
     
     
     public void put_words(T[] words){

@@ -28,37 +28,27 @@ public class ngmodel<T> implements Serializable {
         head_node = new ngnode(null,0);
     }
 
-    public void train(String [] train_set){
+    public void train(T [] train_set){
         for (int i = 0; i<train_set.length;++i){
             int terminate_index =  i + max_depth;
             if ( i + max_depth > train_set.length ){
                 terminate_index = train_set.length;
             }
-            String [] sub_set = Arrays.copyOfRange(train_set, i,terminate_index);
+            T [] sub_set = Arrays.copyOfRange(train_set, i,terminate_index);
             head_node.put_words(sub_set);
         }
     }
     
-    public void train(String sentence,String division){
-        this.train(sentence.split(division));
-    }
-    
-    public void train(String [] sentences, String division){
-        for (String sentence: sentences){
-            this.train(sentences,division);
-        }
-    }
-    
-    public predict_result predict(String [] sentence_in){
-        predict_result return_value = null;
+    public predict_result<T> predict(T [] sentence_in){
+        predict_result<T> return_value = null;
         if ( sentence_in.length> (max_depth-1) ){
             sentence_in =  Arrays.copyOfRange(sentence_in,
                     sentence_in.length-(max_depth-1),sentence_in.length);
         }
         for (int i = 0; i<sentence_in.length; i++){
-            String [] sub_set = Arrays.copyOfRange(sentence_in,i,sentence_in.length);
+            T [] sub_set = Arrays.copyOfRange(sentence_in,i,sentence_in.length);
             return_value = this.head_node.search_words(sub_set);
-            if (return_value!=null){
+            if (return_value.valid){
                 return_value.predict_layer = sub_set.length + 1;
                 break;
             }
