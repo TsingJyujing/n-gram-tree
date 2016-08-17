@@ -22,12 +22,19 @@ public class mltool {
         System.out.println("\tString,String_Array,");
         System.out.println("\tDouble,Double_Array.");
     }
+    
     public ngmodel<Integer> get_Integer_model(){
         return new ngmodel<>();
     }
+    
     public ngmodel<Integer []> get_Integer_Array_model(){
         return new ngmodel<>();
     }
+    
+    public ngmodel<int []> get_int_Array_model(){
+        return new ngmodel<>();
+    }
+    
     public ngmodel<String> get_String_model(){
         return new ngmodel<>();
     }
@@ -38,6 +45,9 @@ public class mltool {
         return new ngmodel<>();
     }
     public ngmodel<Double []> get_Double_Array_model(){
+        return new ngmodel<>();
+    }
+    public ngmodel<double []> get_double_Array_model(){
         return new ngmodel<>();
     }
     

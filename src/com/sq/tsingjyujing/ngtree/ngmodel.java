@@ -16,18 +16,26 @@ import java.util.zip.GZIPOutputStream;
  */
 public class ngmodel<T> implements Serializable {
     
-    private ngnode head_node;
+    private ngnode head_node = null;
     private int max_depth = 4;
     
     public ngmodel(){
-        head_node = new ngnode(null,0);
+        head_node = new ngnode<>(null,0);
     }
     
     public ngmodel(int max_depth){
         this.max_depth = max_depth;
-        head_node = new ngnode(null,0);
+        head_node = new ngnode<>(null,0);
     }
-
+    
+    public void set_max_depth(int dep){
+        this.max_depth = dep;
+    }
+    
+    public int get_max_depth(){
+        return this.max_depth;
+    }
+    
     public void train(T [] train_set){
         for (int i = 0; i<train_set.length;++i){
             int terminate_index =  i + max_depth;

@@ -84,7 +84,7 @@ public class predict_result<T> {
         for (int i = 0; i<words.size(); i++){
             return_val[i] = (T) words.get(i).word;
         }
-        return return_val;
+        return (T[]) return_val;
     }
     
     /**
@@ -102,6 +102,23 @@ public class predict_result<T> {
         return return_val;
     }
     
+    public double [] get_result_prob(){
+        if(!valid){
+            return new double [0];
+        }
+        double [] return_val = new double[words.size()];
+        double sum = 0.0f;
+        
+        for (int i = 0; i<words.size(); i++){
+            sum += (double)words.get(i).count;
+        }
+        
+        for (int i = 0; i<words.size(); i++){
+            return_val[i] = ((double)words.get(i).count)/sum;
+        }
+        
+        return return_val;
+    }
     /**
      *用来储存每个结果的单元
      * @param <T> 索引类型卧槽要我打几遍啊这破软件
