@@ -11,6 +11,9 @@ package com.sq.tsingjyujing.ngtree;
  * Matlab患者的福音，方便在Matlab中的使用
  */
 public class mltool {
+    /**
+     * 显示使用方法
+     */
     public void useage(){
         System.out.println("USEAGE:");
         System.out.println("\tmlt = com.sq.tsingjyujing.ngtree.mltool();");
@@ -21,6 +24,13 @@ public class mltool {
         System.out.println("\tInteger,Integer_Array,");
         System.out.println("\tString,String_Array,");
         System.out.println("\tDouble,Double_Array.");
+    }
+    
+    /**
+     * 显示使用方法
+     */
+    public void display() {
+        this.useage();
     }
     
     public ngmodel<Integer> get_Integer_model(){

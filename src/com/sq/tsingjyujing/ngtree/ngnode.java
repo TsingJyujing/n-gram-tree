@@ -18,7 +18,7 @@ import java.util.Set;
 public class ngnode<T> implements Serializable {
     //其实完全可以作为ngmodel的一个内部类
     //先这么写着吧
-    public T word;
+    public T key;
     
     //虽说要谨慎使用String作为键值
     //でも、Who TM cares?
@@ -26,46 +26,65 @@ public class ngnode<T> implements Serializable {
     
     public long count = 0;
     
-    
+    /**
+     * 生成默认的节点
+     */
     public ngnode(){
         count = 0;
     }
     
-    public ngnode(T add_word){
-        word = add_word;
+    /**
+     *
+     * @param add_key 生成节点的键值（“词汇”）
+     */
+    public ngnode(T add_key){
+        key = add_key;
     }
     
-    public ngnode(T add_word, long init_count){
-        this.word = add_word;
+    /**
+     *
+     * @param add_key 添加的键值（“词汇”）
+     * @param init_count 键值的初始数值
+     */
+    public ngnode(T add_key, long init_count){
+        this.key = add_key;
         this.count = init_count;
     }
     
-    
-    public void put_words(T[] words){
+    /**
+     *
+     * @param keys 训练的键值序列
+     */
+    public void put_keys(T[] keys){
         //加入一个（串）词的函数
         ngnode this_node = this;
         this.count++;
-        for (int i = 0; i < words.length; ++i){
+        for (int i = 0; i < keys.length; ++i){
             //尝试在ThisNode里面查找当前词语
-            boolean exist_key = this_node.sub_nodes_map.containsKey(words[i]);
+            boolean exist_key = this_node.sub_nodes_map.containsKey(keys[i]);
             Integer ID;
             if (!exist_key){
                 //找不到就新建一个
-                this_node.sub_nodes_map.put(words[i],new ngnode(words[i],0));
+                this_node.sub_nodes_map.put(keys[i],new ngnode(keys[i],0));
             }
-            this_node = (ngnode) this_node.sub_nodes_map.get(words[i]);
+            this_node = (ngnode) this_node.sub_nodes_map.get(keys[i]);
             this_node.count++;
         }
     }
     
-    public predict_result<T> search_words(T[] words){
+    /**
+     *
+     * @param keys 输入的历史键值序列
+     * @return 预测的结果
+     */
+    public predict_result<T> search_keys(T[] keys){
         ngnode this_node = this;
         predict_result<T> rtnval = new predict_result();
-        for (T key_word : words) {
-            if (!this_node.sub_nodes_map.containsKey(key_word)) {
+        for (T sub_key : keys) {
+            if (!this_node.sub_nodes_map.containsKey(sub_key)) {
                 return rtnval;//如果找不到就返回空
             }
-            this_node = (ngnode) this_node.sub_nodes_map.get(key_word);
+            this_node = (ngnode) this_node.sub_nodes_map.get(sub_key);
         }
         if(this_node.sub_nodes_map.size()>0){
             rtnval.valid = true;
